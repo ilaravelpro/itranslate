@@ -1,0 +1,39 @@
+{
+    "name": "ilaravel/itranslate",
+    "description": "iLaravel iTranslate",
+    "keywords": ["laravel","translate", "languages"],
+    "homepage": "https://ilaravel.iamir.net/packages/itranslate",
+    "license": "MIT",
+    "authors": [
+        {
+            "name" : "iamirnet",
+            "email" : "me@iamir.net",
+            "homepage": "https://iamir.net",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "src"
+        ],
+        "psr-4": {
+            "iLaravel\\iTranslate\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "iLaravel\\iTranslate\\Providers\\AppServiceProvider",
+                "iLaravel\\iTranslate\\Providers\\RouteServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "stichoza/google-translate-php": "*"
+    }
+}
