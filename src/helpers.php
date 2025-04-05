@@ -37,3 +37,7 @@ function _ti($trans = null, $replace = null)
     }else
         return $trans;
 }
+
+function i_locale($locale) {
+    return app('i_locals')->where('code', $locale)->first();
+}

@@ -21,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
                 $this->loadMigrationsFrom(itranslate_path('database/migrations'));
         }
         $this->mergeConfigFrom(itranslate_path('config/itranslate.php'), 'ilaravel.main.itranslate');
+
+        $this->app->singleton('i_locals', function(){
+            return imodal('TranslateLocal')::all();
+        });
     }
 
     public function register()
