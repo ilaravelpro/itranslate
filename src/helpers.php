@@ -20,22 +20,25 @@ function itranslate($key = null, $default = null)
 
 function _t($trans = null, $replace = null)
 {
-
-    if ($trans) {
-        $model = imodal('TranslateMessage');
-        $translate = $model::firstOrCreate($trans);
-        return $replace ? _set_values_text($translate ? $translate->value : $trans, $replace): ($translate ? $translate->value : $trans);
-    }else
-        return $trans;
+    try {
+        if ($trans) {
+            $model = imodal('TranslateMessage');
+            $translate = $model::firstOrCreate($trans);
+            return $replace ? _set_values_text($translate ? $translate->value : $trans, $replace): ($translate ? $translate->value : $trans);
+        }
+    }catch (\Throwable $exception){}
+    return $trans;
 }
 
 function _ti($trans = null, $replace = null)
 {
-    if ($trans) {
-        $translate = \iLaravel\iTranslate\iApp\TranslateMessage::firstOrCreate($trans);
-        return $replace ? _set_values_text($translate->value ? : $trans, $replace): ($translate->value ? : $trans);
-    }else
-        return $trans;
+    try {
+        if ($trans) {
+            $translate = \iLaravel\iTranslate\iApp\TranslateMessage::firstOrCreate($trans);
+            return $replace ? _set_values_text($translate->value ? : $trans, $replace): ($translate->value ? : $trans);
+        }
+    }catch (\Throwable $exception){}
+    return $trans;
 }
 
 function i_locale($locale) {
