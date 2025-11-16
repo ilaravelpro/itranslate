@@ -9,7 +9,9 @@
 
 namespace iLaravel\iTranslate\Providers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,7 +25,16 @@ class AppServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(itranslate_path('config/itranslate.php'), 'ilaravel.main.itranslate');
 
         $this->app->singleton('i_locals', function(){
-            return imodal('TranslateLocal')::all();
+            return Cache::remember("i_locals", 60 * 60, function(){
+                return imodal('TranslateLocal')::all();
+            });
+        });
+        $this->app->singleton('i_local_messages', function(){
+            return Cache::remember("i_local_messages", 60 * 60, function(){
+                return imodal('TranslateMessage')::all()->pluck('value', function ($item) {
+                    return Str::slug($item->key, '_'). "_{$item->local}";
+                });
+            });
         });
     }
 

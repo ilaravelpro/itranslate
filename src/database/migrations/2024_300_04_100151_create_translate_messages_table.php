@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTranslateModelsTable extends Migration
+class CreateTranslateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateTranslateModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('translate_models', function (Blueprint $table) {
+        Schema::smartCreate('translate_messages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('local');
-            $table->string('model_type');
-            $table->string('model_id');
-            $table->string('status')->nullable();
+            $table->text('key');
+            $table->text('value')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateTranslateModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('translate_models');
+        Schema::dropIfExists('translate_messages');
     }
 }

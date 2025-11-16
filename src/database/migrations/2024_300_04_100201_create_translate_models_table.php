@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTranslateIndexesTable extends Migration
+class CreateTranslateModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateTranslateIndexesTable extends Migration
      */
     public function up()
     {
-        Schema::create('translate_indexes', function (Blueprint $table) {
+        Schema::smartCreate('translate_models', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('model_id')->nullable();
-            $table->foreign('model_id')->references('id')->on('translate_models');
-            $table->string('type');
-            $table->string('key');
-            $table->longText('value')->nullable();
+            $table->string('local');
+            $table->string('model_type');
+            $table->string('model_id');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateTranslateIndexesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('translate_indexes');
+        Schema::dropIfExists('translate_models');
     }
 }

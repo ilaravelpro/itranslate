@@ -8,6 +8,8 @@
 namespace iLaravel\iTranslate\iApp;
 
 use iLaravel\Core\iApp\Http\Requests\iLaravel as Request;
+use Illuminate\Support\Facades\Cache;
+
 class TranslateLocal extends \iLaravel\Core\iApp\Model
 {
     public static $s_prefix = "ITRL";
@@ -15,6 +17,13 @@ class TranslateLocal extends \iLaravel\Core\iApp\Model
     public static $s_end = 40000;
 
 
+    public static function boot()
+    {
+        parent::boot();
+        parent::saving(function () {
+            Cache::forget("i_locals");
+        });
+    }
 
     public function parent()
     {

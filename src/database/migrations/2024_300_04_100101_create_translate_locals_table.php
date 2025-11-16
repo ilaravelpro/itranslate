@@ -13,7 +13,7 @@ class CreateTranslateLocalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('translate_locals', function (Blueprint $table) {
+        Schema::smartCreate('translate_locals', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('translate_locals');

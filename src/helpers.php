@@ -22,12 +22,11 @@ function _t($trans = null, $replace = null)
 {
     try {
         if ($trans) {
-            $model = imodal('TranslateMessage');
-            $translate = $model::firstOrCreate($trans);
-            return $replace ? _set_values_text($translate ? $translate->value : $trans, $replace): ($translate ? $translate->value : $trans);
+            $translate = imodal('TranslateMessage')::firstOrCreate($trans);
+            return $replace ? _set_values_text($translate ?: $trans, $replace) : ($translate ?: $trans);
         }
-    }catch (\Throwable $exception){}
-    return $trans;
+    } catch (\Throwable $exception) {}
+    return $replace ? _set_values_text($trans, $replace) : $trans;
 }
 
 function _ti($trans = null, $replace = null)
@@ -35,12 +34,14 @@ function _ti($trans = null, $replace = null)
     try {
         if ($trans) {
             $translate = \iLaravel\iTranslate\iApp\TranslateMessage::firstOrCreate($trans);
-            return $replace ? _set_values_text($translate->value ? : $trans, $replace): ($translate->value ? : $trans);
+            return $replace ? _set_values_text($translate->value ?: $trans, $replace) : ($translate->value ?: $trans);
         }
-    }catch (\Throwable $exception){}
+    } catch (\Throwable $exception) {
+    }
     return $trans;
 }
 
-function i_locale($locale) {
+function i_locale($locale)
+{
     return app('i_locals')->where('code', $locale)->first();
 }
